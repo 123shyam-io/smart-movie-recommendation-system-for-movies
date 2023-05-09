@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Recommendation System</title>
+</head>
+<body>
+    <h1>Enter a Movie Title</h1>
+    <form method="POST" action="{{ url_for('recommend') }}">
+        <label for="movie_title">Movie Title:</label>
+        <input type="text" id="movie_title" name="movie_title" required>
+        <br><br>
+        <input type="submit" value="Get Recommendations">
+    </form>
+</body>
+</html>
