@@ -70,4 +70,25 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
-@app.route('/recommend', methods=['POST
+@app.route('/recommend', methods=['POST'])
+def recommend():
+    # get input movie from form
+    movie = request.form['movie']
+
+    # get the top 10 recommended movies
+    recommended_movies = get_movie_recommendations(movie)
+
+    # get the movie information for the recommended movies
+    movie_info = []
+    for recommended_movie in recommended_movies:
+        movie_id = Mapping_file[recommended_movie]
+        title = movies.loc[movies['movieId'] == movie_id, 'title'].iloc[0]
+        genres = movies.loc[movies['movieId'] == movie_id, 'genres'].iloc[0]
+        movie_info.append((title, genres))
+
+    # render the recommendations page with the movie information
+    return render_template('recommendations.html', movie_info=movie_info)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
